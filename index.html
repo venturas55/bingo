@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>BINGOOOO</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- HEADER -->
+        <header class="cabecera">
+            <h1> EL BINGOOOO</h1>
+            <button class="item" @click="pausar();verOpciones=true">OPCIONES</button>
+        </header>
+
+        <!-- BODY -->
+        <div class="contenedor">
+            <div class="contenedorFlex">
+                <button v-if="gameState==0" class="item" @click="comenzarBingo()" id="botonStart">COMENZAR NUEVO BINGO</button>
+                <button  v-if="gameState==1 && !lineaCantada" class="item" @click="pausar();cantar();" >LINEA!</button>
+                <button  v-if="gameState==1 && lineaCantada" class="item" @click="pausar();cantar();">BINGO!</button>
+                <button   v-if="gameState==3 && !lineaCantada" class="item" @click="cantadoEs('linea',true)">LINEA CORRECTA</button>
+                <button   v-if="gameState==3 && !lineaCantada" class="item"  @click="cantadoEs('linea',false)">LINEA INCORRECTA</button>
+                <button   v-if="gameState==3 && lineaCantada" class="item" @click="cantadoEs('bingo',true)">BINGO CORRECTO</button>
+                <button   v-if="gameState==3 && lineaCantada" class="item"  @click="cantadoEs('bingo',false)">BINGO INCORRECTO</button>
+       
+                <button   v-if="!gameState==2" class="item"  @click="pausar()">PAUSAR BINGO</button>
+                <button   v-if="gameState==2" class="item"  @click="gameState=1;">REANUDAR BINGO</button>
+                <!--  <button v-if="!partidaEnCurso" class="item" @click="sacarBola()">Sacar Una Bola</button>-->
+          
+            <div id="numeros" class="contenedorFlex"></div>
+            <button v-if="!gameState==0" class="item"  @click="reseteo()">ABORTAR BINGO </button>
+        </div>
+        </div>
+
+        <!-- MODAL OPCIONES -->
+        <div class="contenedorModal" v-show="verOpciones">
+            <div class="header">
+                <button class="close" @click="verOpciones=false">X</button>
+                <h1>OPCIONES</h1>
+            </div>
+            <div>
+                <div>
+                    <p>Tiempo entre bola</p>
+                    <input v-model="tiempo" type="number">
+                 
+                </div>
+
+    
+                <button @click="aplicar()">GUARDAR</button>
+                <button @click="verOpciones=false">CANCELAR</button>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">Adrian de Haro Ortega. <span class="copyleft"> &copy; </span> Pie de mi App · Todos los derechos reservados</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=h4UJYPUV"></script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+/* VARIABLES */
+:root {
+    --main-bg-color: transparent;
+    --main-color: rgb(31, 22, 22);
+    --app-bg: rgba(94, 84, 185, 0.425);
+    --botton-bg: rgb(118, 148, 204);
+    --botton-hover: rgb(132, 202, 171);
+    --botton-color: white;
+    --ficha-bg-front: rgb(162, 184, 216);
+    --ficha-bg-back: rgb(165, 231, 185);
+    --bar-bg: rgb(44, 40, 40);
+    --bar-color: rgb(203, 202, 238);
+}
+
+/*   var(--botton-color)    */
+/* CUERPO */
+.app {
+    background-color: greenyellow;
+    margin: 0px;
+    height: 600px;
+}
+
+body,
+input,
+select,
+label,
+textarea {
+       font-family: "Merriweather", Georgia, serif;
+    font-size: 1em;
+    background-color: var(--main-bg-color);
+}
+
+body::after {
+    background: url(../img/bg.jpg) no-repeat center center;
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-attachment: fixed;
+    content: "";
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* CABECERA */
+.cabecera {
+    margin: 0px;
+    margin-top: 0.1em;
+    border-radius: 20px;
+    background-color: var(--bar-bg);
+    color: var(--bar-color);
+    height: 70px;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cabecera h1 {
+    margin: 0px;
+    text-align: center;
+}
+
+/* APLICACION */
+#app {
+    color: black;
+    width: 100%;
+    min-width: 300px;
+    margin: 0px auto;
+    box-shadow: 0px 0px 0px black;
+}
+
+#numeros {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    align-items: center;
+}
+
+.bola {
+    vertical-align: middle;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    font-size: x-large;
+    border-radius: 50%;
+    background-color: bisque;
+    text-align: center;
+    margin: 15px;
+}
+
+.sacada {
+    opacity: 1;
+}
+
+.contenedor {
+    height: 100%;
+}
+
+.contenedorFlex {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.item {
+    font-weight: 800;
+    margin: 0.5em;
+    font-size: 2em;
+}
+
+button {
+    height: 50px;
+    line-height: 0px;
+    padding: 0.2em;
+    color: var(--botton-color);
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    border-radius: 10px;
+    border: var(--botton-bg) 1px solid;
+    background: var(--botton-bg);
+}
+
+button:hover {
+    border: var(--botton-hover) 1px solid;
+    background: var(--botton-hover);
+}
+
+
+/* FOOTER */
+.footer {
+    height: 30px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--bar-bg);
+    color: var(--bar-color);
+    text-align: center;
+}
+
+.copyleft {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+
+/* =========  VENTANA MODAL ======= */
+.contenedorModal {
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    width: 80%;
+    text-align: center;
+    position: fixed;
+    top: 100px;
+    left: 10%;
+}
+
+
+.close {
+    width: 50px;
+    float: right;
+}
+
+@media (max-width: 575px) {
+    .slidecontainer {
+        grid-template: 1fr / 190px 1fr 50px;
+    }
+}
