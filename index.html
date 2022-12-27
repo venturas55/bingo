@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-    <title>BINGOOOO</title>
+    <title>BINGO</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -11,28 +11,49 @@
     <div id="app">
         <!-- HEADER -->
         <header class="cabecera">
-            <h1> EL BINGOOOO</h1>
-            <button class="item" @click="pausar();verOpciones=true">OPCIONES</button>
+            <h1> EL BINGO</h1>
+            <button class="boton item" @click="pausar();verOpciones=true">OPCIONES</button>
         </header>
 
-        <!-- BODY -->
-        <div class="contenedor">
-            <div class="contenedorFlex">
-                <button v-if="gameState==0" class="item" @click="comenzarBingo()" id="botonStart">COMENZAR NUEVO BINGO</button>
-                <button  v-if="gameState==1 && !lineaCantada" class="item" @click="pausar();cantar();" >LINEA!</button>
-                <button  v-if="gameState==1 && lineaCantada" class="item" @click="pausar();cantar();">BINGO!</button>
-                <button   v-if="gameState==3 && !lineaCantada" class="item" @click="cantadoEs('linea',true)">LINEA CORRECTA</button>
-                <button   v-if="gameState==3 && !lineaCantada" class="item"  @click="cantadoEs('linea',false)">LINEA INCORRECTA</button>
-                <button   v-if="gameState==3 && lineaCantada" class="item" @click="cantadoEs('bingo',true)">BINGO CORRECTO</button>
-                <button   v-if="gameState==3 && lineaCantada" class="item"  @click="cantadoEs('bingo',false)">BINGO INCORRECTO</button>
-       
-                <button   v-if="!gameState==2" class="item"  @click="pausar()">PAUSAR BINGO</button>
-                <button   v-if="gameState==2" class="item"  @click="gameState=1;">REANUDAR BINGO</button>
-                <!--  <button v-if="!partidaEnCurso" class="item" @click="sacarBola()">Sacar Una Bola</button>-->
-          
-            <div id="numeros" class="contenedorFlex"></div>
-            <button v-if="!gameState==0" class="item"  @click="reseteo()">ABORTAR BINGO </button>
+        <div v-if="lineaCantada">
+            LINEA CANTADA!
         </div>
+        <div class="contenedorFlex flexRow flexLeft">
+            <div class="contenedorFlex flexColumn flexCenter">
+                <h4>Han salido {{ronda}} bolas </h4>
+                <h4> Faltan {{numBolasFaltan}} bolas por salir</h4>
+                <p> Se han vendido {{cartonesVendidos}} cartones a {{precioCarton}} € . Se han recaudado {{recaudadoRonda}}€ </p>
+                <p v-if="acumuladoPorcentaje>0 ">de los que se acumula el {{acumuladoPorcentaje}} % </p> <span v-if="premioAcumulado>0"> , quedando : {{premioAcumulado}}</span>
+                <p>La LINEA se paga a: {{premioLinea}} €</p>
+                <p v-if="dobleLinea"> {{premio2Lineas}} €</p>
+                <p>El BINGO se paga a: {{premioBingo}} €</p>
+                <p v-if="premioAcumulado>0"> AcumuladoTotal: {{premioAcumulado}} </p>
+
+            </div>
+            <div class="contenedorFlex flexRow">
+                <button v-if="gameState==0" class="boton sizeL item" @click="comenzarBingo()" id="botonStart">COMENZAR NUEVO BINGO</button>
+                <button v-if="gameState==1 && !lineaCantada && ronda>4" class="boton sizeL item" @click="pausar();cantar();">LINEA!</button>
+                <button v-if="gameState==1 && lineaCantada && ronda>14" class="boton sizeL item" @click="pausar();cantar();">BINGO!</button>
+                <button v-if="gameState==3 && !lineaCantada" class="boton sizeL item" @click="cantadoEs('linea',true)">LINEA CORRECTA</button>
+                <button v-if="gameState==3 && !lineaCantada" class="boton sizeL item" @click="cantadoEs('linea',false)">LINEA INCORRECTA</button>
+                <button v-if="gameState==3 && lineaCantada" class="boton sizeL item" @click="cantadoEs('bingo',true)">BINGO CORRECTO</button>
+                <button v-if="gameState==3 && lineaCantada" class="boton sizeL item" @click="cantadoEs('bingo',false)">BINGO INCORRECTO</button>
+                <button v-if="gameState==1" class="boton sizeL item" @click="pausar();">PAUSAR</button>
+                <button v-if="gameState==2" class="boton sizeL item" @click="reanudar()">REANUDAR BINGO</button>
+                <button v-if="gameState==2" class="boton sizeL item" @click="reseteo()">ABORTAR BINGO </button>
+            </div>
+
+        </div>
+
+
+        <!-- BODY -->
+        <div class="containerBody">
+
+            <div id="marcador">
+            </div>
+            <div id="panelBolas"></div>
+            <h4>Llevas {{num_partidas}} bingos completados </h4>
+            <br>
         </div>
 
         <!-- MODAL OPCIONES -->
@@ -43,14 +64,24 @@
             </div>
             <div>
                 <div>
-                    <p>Tiempo entre bola</p>
-                    <input v-model="tiempo" type="number">
-                 
+                    <span> Porcentaje acumulado</span>
+                    <input v-model="acumuladoPorcentaje" type="number">
                 </div>
 
-    
-                <button @click="aplicar()">GUARDAR</button>
-                <button @click="verOpciones=false">CANCELAR</button>
+                <div>
+                    <span>Premio a la doble linea: </span>
+                    <input v-model="dobleLinea" type="boolean">
+
+                </div>
+
+
+                <div>
+                    <span>Tiempo entre bolas</span>
+                    <input v-model="tiempo" type="number">
+
+                </div>
+                <button class="boton" @click="aplicar()">GUARDAR</button>
+                <button class="boton" @click="verOpciones=false">CANCELAR</button>
             </div>
         </div>
 

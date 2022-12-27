@@ -1,4 +1,5 @@
 /* VARIABLES */
+
 :root {
     --main-bg-color: transparent;
     --main-color: rgb(31, 22, 22);
@@ -12,12 +13,19 @@
     --bar-color: rgb(203, 202, 238);
 }
 
+
 /*   var(--botton-color)    */
+
+
 /* CUERPO */
-.app {
-    background-color: greenyellow;
+
+#app {
     margin: 0px;
-    height: 600px;
+    height: 100%;
+}
+
+body {
+    height: 100vh;
 }
 
 body,
@@ -25,13 +33,13 @@ input,
 select,
 label,
 textarea {
-       font-family: "Merriweather", Georgia, serif;
+    font-family: "Merriweather", Georgia, serif;
     font-size: 1em;
     background-color: var(--main-bg-color);
 }
 
 body::after {
-    background: url(../img/bg.jpg) no-repeat center center;
+    /*  background: url(../img/bg.jpg) no-repeat center center; */
     background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
@@ -47,7 +55,9 @@ body::after {
     z-index: -1;
 }
 
+
 /* CABECERA */
+
 .cabecera {
     margin: 0px;
     margin-top: 0.1em;
@@ -55,7 +65,6 @@ body::after {
     background-color: var(--bar-bg);
     color: var(--bar-color);
     height: 70px;
-
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
@@ -67,7 +76,9 @@ body::after {
     text-align: center;
 }
 
+
 /* APLICACION */
+
 #app {
     color: black;
     width: 100%;
@@ -76,11 +87,10 @@ body::after {
     box-shadow: 0px 0px 0px black;
 }
 
-#numeros {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: left;
-    align-items: center;
+.containerBody {
+    height: 100%;
+    padding-top: 70px;
+    padding-bottom: 30px;
 }
 
 .bola {
@@ -99,14 +109,25 @@ body::after {
     opacity: 1;
 }
 
-.contenedor {
-    height: 100%;
-}
-
 .contenedorFlex {
     display: flex;
+}
+
+.flexRow {
+    flex-flow: row wrap;
+}
+
+.flexColumn {
     flex-flow: column wrap;
+}
+
+.flexCenter {
     justify-content: center;
+    align-items: center;
+}
+
+.flexLeft {
+    justify-content: left;
     align-items: center;
 }
 
@@ -116,7 +137,54 @@ body::after {
     font-size: 2em;
 }
 
-button {
+#marcador {
+    margin: auto;
+    width: 500px;
+    height: 100px;
+    margin-bottom: 3em;
+    background-color: rgba(250, 235, 215, 0.479);
+    border-radius: 10px;
+    /*    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden; */
+    display: grid;
+    grid-template: 1fr / repeat(auto-fill, 80px);
+}
+
+#panelBolas {
+    margin: auto;
+    display: grid;
+    border-radius: 1em;
+    /* grid-gap: 0; */
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(9, 85px);
+    background-color: rgb(228, 233, 247);
+}
+
+.bola {
+    /*  height: 40px;
+    width: 40px;
+    background-color: white;
+    color: black;
+    border-radius: 50%;
+     */
+    margin: 1px;
+    display: block;
+    position: relative;
+    width: 75px;
+    height: 75px;
+    background: white;
+    border-radius: 50%;
+    background: -webkit-radial-gradient(25px 25px, circle, white, #000);
+    background: -moz-radial-gradient(25px 25px, circle, white, #000);
+    background: radial-gradient(25px 25px, circle, white, #000);
+    /*position: absolute;*/
+    float: left;
+}
+
+.boton {
     height: 50px;
     line-height: 0px;
     padding: 0.2em;
@@ -127,6 +195,10 @@ button {
     background: var(--botton-bg);
 }
 
+.sizeL {
+    height: 70px;
+}
+
 button:hover {
     border: var(--botton-hover) 1px solid;
     background: var(--botton-hover);
@@ -134,6 +206,7 @@ button:hover {
 
 
 /* FOOTER */
+
 .footer {
     height: 30px;
     position: fixed;
@@ -152,8 +225,9 @@ button:hover {
 
 
 /* =========  VENTANA MODAL ======= */
+
 .contenedorModal {
-    background: white;
+    background: rgb(211, 136, 136);
     border-radius: 5px;
     padding: 5px;
     width: 80%;
@@ -163,14 +237,70 @@ button:hover {
     left: 10%;
 }
 
-
 .close {
     width: 50px;
     float: right;
 }
 
-@media (max-width: 575px) {
-    .slidecontainer {
-        grid-template: 1fr / 190px 1fr 50px;
+.saleBola {
+    -webkit-animation: spin 500ms linear 2, moveRightToLeft 1s linear infinite;
+    -moz-animation: spin 500ms linear 2, moveRightToLeft 1s linear infinite;
+    -ms-animation: spin 500ms linear 2, moveRightToLeft 1s linear infinite;
+    animation: spin 500ms linear 2, moveRightToLeft 1s linear;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.ruedaBola {
+    color: rgb(0, 38, 255);
+    -webkit-animation: spin 500ms linear 1, moveRightToLeft2 0.5s linear infinite;
+    -moz-animation: spin 500ms linear 1, moveRightToLeft2 0.5s linear infinite;
+    -ms-animation: spin 500ms linear 1, moveRightToLeft2 0.5s linear infinite;
+    animation: spin 500ms linear 1, moveRightToLeft2 0.5s linear;
+    -webkit-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes moveRightToLeft {
+    0% {
+        top: -60px;
+        left: 200px;
+    }
+    10% {
+        top: -50px;
+        left: 185px;
+    }
+    12% {
+        top: -40px;
+        left: 170px;
+    }
+    15% {
+        top: -30px;
+        left: 165px;
+    }
+    20% {
+        top: 0px;
+        left: 150px;
+    }
+    100% {
+        left: 0%;
+    }
+}
+
+@keyframes moveRightToLeft2 {
+    0% {
+        left: 80px;
+    }
+    100% {
+        left: 0px;
     }
 }
